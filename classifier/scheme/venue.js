@@ -177,5 +177,20 @@ module.exports = [
         not: ['StreetClassification']
       }
     ]
+  },
+  {
+    // San Francisco Museum of Modern Art
+    confidence: 0.75,
+    Class: VenueClassification,
+    scheme: [
+      {
+        is: ['LocalityClassification', 'RegionClassification'],
+        not: ['StreetClassification', 'IntersectionClassification', 'StopWordClassification']
+      },
+      {
+        is: ['PlaceClassification', 'VenueClassification'],
+        not: []
+      }
+    ]
   }
 ]

@@ -14,6 +14,7 @@ const CompoundStreetClassifier = require('../classifier/CompoundStreetClassifier
 const DirectionalClassifier = require('../classifier/DirectionalClassifier')
 const OrdinalClassifier = require('../classifier/OrdinalClassifier')
 const StopWordClassifier = require('../classifier/StopWordClassifier')
+const ConnectorWordClassifier = require('../classifier/ConnectorWordClassifier')
 const PersonClassifier = require('../classifier/PersonClassifier')
 const GivenNameClassifier = require('../classifier/GivenNameClassifier')
 const SurnameClassifier = require('../classifier/SurnameClassifier')
@@ -37,6 +38,8 @@ const MustNotPreceedFilter = require('../solver/MustNotPreceedFilter')
 const MustNotFollowFilter = require('../solver/MustNotFollowFilter')
 const SubsetFilter = require('../solver/SubsetFilter')
 const HouseNumberPositionPenalty = require('../solver/HouseNumberPositionPenalty')
+const ConnectorWordPositionPenalty = require('../solver/ConnectorWordPositionPenalty')
+const SolutionLengthBoost = require('../solver/SolutionLengthBoost')
 
 class AddressParser extends Parser {
   constructor (options) {
@@ -61,6 +64,7 @@ class AddressParser extends Parser {
         new DirectionalClassifier(),
         new OrdinalClassifier(),
         new StopWordClassifier(),
+        new ConnectorWordClassifier(),
 
         // phrase classifiers
         new IntersectionClassifier(),
@@ -125,9 +129,11 @@ class AddressParser extends Parser {
         new MustNotFollowFilter('LocalityClassification', 'RegionClassification'),
         new MustNotFollowFilter('LocalityClassification', 'CountryClassification'),
         new HouseNumberPositionPenalty(),
+        new ConnectorWordPositionPenalty(),
         new TokenDistanceFilter(),
         new OrphanedUnitTypeDeclassifier(),
-        new SubsetFilter()
+        new SubsetFilter(),
+        new SolutionLengthBoost()
       ],
       options
     )

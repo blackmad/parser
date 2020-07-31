@@ -99,8 +99,8 @@ class WhosOnFirstClassifier extends PhraseClassifier {
     let next = lastChild.graph.findOne('next')
     if (
       next && (
-        next.classifications.hasOwnProperty('StreetSuffixClassification') ||
-        next.classifications.hasOwnProperty('PlaceClassification')
+        next.classifications.hasOwnProperty('StreetSuffixClassification')
+        // || next.classifications.hasOwnProperty('PlaceClassification')
       )) {
       return
     }
